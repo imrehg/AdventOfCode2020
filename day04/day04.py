@@ -1,7 +1,8 @@
 import sys
 import re
 
-required_fields = { "byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"}
+required_fields = {"byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"}
+
 
 def basic_validate(passports, required_fields):
     count = 0
@@ -11,25 +12,26 @@ def basic_validate(passports, required_fields):
         count += 1 if not missing_required_fields else 0
     return count
 
+
 def extended_validate(passports, required_fields):
     count = 0
     for passport in passports:
 
         try:
-            byr = int(passport['byr'])
+            byr = int(passport["byr"])
             if not 1920 <= byr <= 2002:
                 continue
         except:
             continue
         try:
-            iyr = int(passport['iyr'])
+            iyr = int(passport["iyr"])
             if not 2010 <= iyr <= 2020:
                 continue
         except:
             continue
 
         try:
-            eyr = int(passport['eyr'])
+            eyr = int(passport["eyr"])
             if not 2020 <= eyr <= 2030:
                 continue
         except:
@@ -83,8 +85,12 @@ def read_passports_file(filename):
                 buff += separator + line.strip()
         if buff != "":
             passports.append(buff)
-    passports_parsed = [{field.split(":")[0]:field.split(":")[1] for field in passport.split(" ")} for passport in passports]
+    passports_parsed = [
+        {field.split(":")[0]: field.split(":")[1] for field in passport.split(" ")}
+        for passport in passports
+    ]
     return passports_parsed
+
 
 if __name__ == "__main__":
     input_file = sys.argv[1]
