@@ -11,7 +11,7 @@ if __name__ == "__main__":
     print(f"Result 1: {result1}")
 
     for seat in range(min(ids), max(ids)):
-        if seat - 1 in ids and seat - 1 in ids and seat not in ids:
+        if seat - 1 in ids and seat + 1 in ids and seat not in ids:
             result2 = seat
             break
     print(f"Result 2: {result2}")
