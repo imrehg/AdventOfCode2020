@@ -6,38 +6,22 @@ def read_customs_file(filename):
     with open(filename, "r") as f:
         buff = []
         for line in f.readlines():
-            if line.strip() == "" and buff != "":
+            if line.strip() == "" and buff:
                 declarations.append(buff)
                 buff = []
             else:
-                separator = " " if buff else ""
-                buff += [line.strip()]
-        if buff != "":
+                buff += [{answer for answer in line.strip()}]
+        if buff:
             declarations.append(buff)
     return declarations
 
 
 def any_counts(declarations):
-    total = 0
-    for group in declarations:
-        total += len({answer for answer in "".join(group)})
-    return total
+    return sum([len(set.union(*group)) for group in declarations])
 
 
 def all_counts(declarations):
-    total = 0
-    for group in declarations:
-        groupset = []
-        for person in group:
-            groupset.append({answer for answer in person})
-        if len(groupset) > 1:
-            overlap = groupset[0]
-            for i in range(1, len(groupset)):
-                overlap &= groupset[i]
-            total += len(overlap)
-        else:
-            total += len(groupset[0])
-    return total
+    return sum([len(set.intersection(*group)) for group in declarations])
 
 
 if __name__ == "__main__":
