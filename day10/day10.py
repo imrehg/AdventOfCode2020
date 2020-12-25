@@ -9,6 +9,21 @@ def adapter_diffs(adapters):
 
 
 def find_paths(diffs):
+    """
+    When chargers are 3 units apart, there's only one path
+    between them.
+
+    When they are 1 units apart, there are multiple paths
+    between them, depending on the run of the 1-unit differences:
+    If only 1 such difference, there's one path. If 2 there's 2,
+    if 3, there's 4... If there's a run longer than than 3 1-unit
+    connections, then have to reduce these numbers.
+    E.g. run of n=4 will result in 2^(n-1) - 2^(n-4) = 7 connections,
+    as chargers more than 3 units apart cannot interact anymore.
+
+    Not 100% sure if this is universally applicable, e.g. if you
+    had a large n it would stand too, but that's for some other time.
+    """
     paths = 1
     run = 0
     for current in diffs:
