@@ -1,6 +1,7 @@
 import sys
 import copy
 
+
 def execute(ops):
     acc = 0
     runlist = set()
@@ -10,12 +11,12 @@ def execute(ops):
         runlist.add(loc)
         op, arg = ops[loc]
         # print(op, arg)
-        if op == 'nop':
+        if op == "nop":
             loc += 1
-        elif op == 'acc':
+        elif op == "acc":
             acc += int(arg)
             loc += 1
-        elif op == 'jmp':
+        elif op == "jmp":
             loc += int(arg)
         else:
             sys.exit("Segmentation fault")
@@ -40,4 +41,3 @@ if __name__ == "__main__":
             if not res[1]:
                 print(res[0])
                 break
-
